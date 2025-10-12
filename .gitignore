@@ -2,7 +2,7 @@
 __pycache__/
 *.py[codz]
 *$py.class
-
+data/dataset_image_test/
 # C extensions
 *.so
 
