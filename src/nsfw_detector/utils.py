@@ -1,17 +1,36 @@
 import os
-import asyncio
-from typing import List, Dict, Any
+import pandas as pd
 from PIL import Image
-import concurrent.futures
-import multiprocessing
+from tqdm import tqdm
 
-def list_image_files(folder: str) -> List[str]:
-    exts = (".jpg", ".jpeg", ".png")
-    return [os.path.join(folder, f) for f in os.listdir(folder) if f.lower().endswith(exts)]
-
-def pil_open_safe(path_or_bytes):
-    from io import BytesIO
-    if isinstance(path_or_bytes, (bytes, bytearray)):
-        return Image.open(BytesIO(path_or_bytes)).convert("RGB")
-    else:
-        return Image.open(path_or_bytes).convert("RGB")
+def extract_image_metadata_to_df(image_dir, ocr_model):
+    """
+    从 dataset_image_test 文件夹中提取图片文字、字体、nsfw元数据等。
+    """
+    records = []
+    for img_name in tqdm(os.listdir(image_dir)):
+        img_path = os.path.join(image_dir, img_name)
+        if not img_name.lower().endswith((".jpg", ".jpeg", ".png")):
+            continue
+        try:
+            img = Image.open(img_path)
+            metadata = img.info
+            font = metadata.get("font", "Unknown")
+            nsfw = metadata.get("nsfw", "Unknown")
+            text_all = ocr_model.predict(img_path)
+            text = " ".join(text_all[0]['rec_texts'])
+            records.append({
+                "image_name": img_name,
+                "extracted_text": text,
+                "font": font,
+                "nsfw": nsfw
+            })
+        except Exception as e:
+            print(f"⚠️ Error processing {img_name}: {e}")
+            records.append({
+                "image_name": img_name,
+                "extracted_text": "",
+                "font": "Unknown",
+                "nsfw": "Unknown"
+            })
+    return pd.DataFrame(records)
