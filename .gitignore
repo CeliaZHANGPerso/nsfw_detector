@@ -1,8 +1,9 @@
+poetry.lock
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
 *$py.class
-
+data/dataset_image_test/
 # C extensions
 *.so
 
