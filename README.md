@@ -79,7 +79,7 @@ It performs the following steps:
 4. **Toxicity Scoring (`toxic.py`)**
    - Uses the `Detoxify` model (based on BERT) to predict NSFW probability.
 
-5. **Threshold Calculation (GMM method) **
+5. **Threshold Calculation (GMM method)**
    - Fits a 2-component Gaussian Mixture Model on prediction scores.
    - Uses the intersection point of the two Gaussians as the optimal NSFW threshold.
 
