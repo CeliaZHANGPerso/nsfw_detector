@@ -12,7 +12,7 @@ import os
 
 app = FastAPI(title="NSFW Detector API")
 
-TOXIC_THRESHOLD = float(os.getenv("TOXIC_THRESHOLD", 0.0105))
+TOXIC_THRESHOLD = float(os.getenv("TOXIC_THRESHOLD", 0.006435))
 NSFW_WORD_FILE = os.getenv("NSFW_WORD_FILE", "./data/nsfw_list.txt")
 DATA_DIR = os.getenv("DATA_DIR", "./data/")
 
