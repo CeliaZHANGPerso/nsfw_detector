@@ -2,7 +2,7 @@ FROM python:3.12-slim
 
 ENV PYTHONUNBUFFERED=1
 WORKDIR /app
-VOLUME /app
+
 # install system deps
 RUN apt-get update && apt-get install -y build-essential
 RUN apt-get update && apt-get install -y libgl1 libglx-mesa0 libglib2.0-0
