@@ -31,7 +31,7 @@ nsfw_detector/
 ### 1️⃣ Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/nsfw_detector.git
+git clone git@github.com:CeliaZHANGPerso/nsfw_detector.git
 cd nsfw_detector
 ```
 
